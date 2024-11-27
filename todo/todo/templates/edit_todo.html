@@ -21,13 +21,12 @@
                 <div class="heading">
                     Get Things Done?
                 </div>
-                </div class='acna'> <a href="{% url 'signout' %}" class="sign"><i 
-                    class="fa-solid fa-right-from-bracket"></i></a></div>
-
+                <i class="fa-solid fa-right-from-bracket"></i>
                 <form method="post">
                     {% csrf_token %}
-                    <input  class="inp" type="text" name="title" required placeholder="Add Today's task">
-                    <input class = submit-button type="submit" value="Add Task">
+                    <input  class="inp" type="text" name="title" required placeholder="Add Today's task
+                    "value= {{obj.title}}>
+                    <input class = submit-button type="submit" value="Update Task">
            
                 </form>
 
@@ -36,15 +35,15 @@
                    <h5>{{todo.srno}}</h5>
                    <p>{{todo.title}}</p>
                    <div>
-                     <a href="edit_todo/{{todo.srno}}"><i class="fa-solid fa-pen-to-square"></i></a>
-                     <a href="delete_todo/{{todo.srno}}"><i class="fa-solid fa-trash"></i></a>
+                     <a href=""><i class="fa-solid fa-pen-to-square"></i></a>
+                     <a href=""><i class="fa-solid fa-trash"></i></a>
                    </div>
                 <div>   
                 {%endfor%}                
             </div>
         <div>
     </div>
-    <script> src="{% static 'js/todo.js' %}"</script>
+    <script src="{% static 'js/todo.js' %}"></script>
 </body>
 
 </html>
