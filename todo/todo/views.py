@@ -27,9 +27,9 @@ def login(request):
         fnm = request.POST.get('fnm')
         pwd = request.POST.get('pwd')
         print(fnm,pwd)
-        User = authenticate(request, username = fnm, password = pwd)
-        if User is not None:
-            login(request,User)
+        userr = authenticate(request, Username = fnm, password = pwd)
+        if userr is not None:
+            login(request,userr)
             return redirect('/todopage')
         else:
             return redirect('/login')
@@ -40,12 +40,12 @@ def todo(request):
     if request.method=='POST':
         title=request.POST.get('title')
         print(title)
-        obj= models.TODO(title=title,User=request.User)
+        obj= models.TODO(title=title,user=request.user)
         obj.save()
-        User = request.User
-        res = models.TODO.objects.filter(User=User).order_by('-date')
+        user = request.user
+        res = models.TODO.objects.filter(user=user).order_by('-date')
         return redirect('/todopage',{'res': res})
-    res = models.TODO.objects.filter(User=request.User).order_by('-date')
+    res = models.TODO.objects.filter(user=request.user).order_by('-date')
     return render(request,'todo.html',{'res': res})
 
 @login_required(login_url='/login')
@@ -56,7 +56,6 @@ def edit_todo(request, srno):
         obj= models.TODO.objects.get(srno=srno)
         obj.title=title
         obj.save()
-        user = request.User
         
         return redirect('/todopage',{'obj': obj})
     obj= models.TODO.objects.get(srno=srno)
